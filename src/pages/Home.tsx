@@ -5,23 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../hooks";
 import Mails from "../components/Mails";
 import Modal from "../components/Modal/Modal";
-
-// {
-//     "created_at": "2023-11-09T05:21:18.032Z",
-//     "created_by": "a.seylkhanov",
-//     "department": "webint",
-//     "email": "fiTDnKsDje@1secmail.com",
-//     "env": "runover",
-//     "id": "654c6c4eeca47f55c5e4ee40",
-//     "password": "strongPASS",
-//     "proxy": "er1DKn6z:FiZfMgnV@193.107.22.6:45347",
-//     "resource": "twitter",
-//     "shared": false,
-//     "status": 1,
-//     "updated_at": "2023-11-09T05:21:18.032Z",
-//     "usable_at": "2023-11-09T05:21:18.032Z",
-//     "username": "Erik87194943729"
-// }
+import toast from "react-hot-toast";
 
 const Home = () => {
   const [login, setLogin] = useState<string | null>(null);
@@ -65,7 +49,12 @@ const Home = () => {
       ...twitterData,
       proxy: proxy!,
     };
-    await submitToAv(data);
+    // await submitToAv(data);
+    await toast.promise(submitToAv(data).unwrap(), {
+      loading: "loading...",
+      error: (err) => err,
+      success: "Успешно",
+    });
   };
 
   const submitSkype = async () => {
@@ -83,7 +72,12 @@ const Home = () => {
       counter: "1",
     };
 
-    await submitToAv(data);
+    // await submitToAv(data);
+    await toast.promise(submitToAv(data).unwrap(), {
+      loading: "loading...",
+      error: (err) => err,
+      success: "Успешно",
+    });
   };
 
   if (isDomainsLoad) {
